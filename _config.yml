@@ -1,0 +1,10 @@
+# Site settings
+title: زَين الحَبيبْ
+baseurl: ""
+url: ""
+
+# Build settings
+kramdown:
+  input: GFM
+permalink: pretty
+
