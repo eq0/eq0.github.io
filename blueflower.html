@@ -1,0 +1,124 @@
+---
+title:  BlueFlower
+description: Random Blue Flower by Sudo0x
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>BlueFlower</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.6.0/two.min.js"></script>
+
+  <style type="text/css">
+
+
+
+
+	  #snackbar {
+	    visibility: hidden;
+	    min-width: 250px;
+	    margin-left: -125px;
+	    color: #000;
+	    text-align: center;
+	    padding: 16px;
+	    position: fixed;
+	    z-index: 1;
+	    left: 50%;
+	    bottom: 30px;
+	    font-size: 10px;
+	    font-family: "arial";
+	}
+
+	#snackbar.show {
+	    visibility: visible;
+
+	}
+
+	@-webkit-keyframes fadein {
+	    from {bottom: 0; opacity: 0;} 
+	    to {bottom: 30px; opacity: 1;}
+	}
+
+	@keyframes fadein {
+	    from {bottom: 0; opacity: 0;}
+	    to {bottom: 30px; opacity: 1;}
+	}
+
+	@-webkit-keyframes fadeout {
+	    from {bottom: 30px; opacity: 1;} 
+	    to {bottom: 0; opacity: 0;}
+	}
+
+	@keyframes fadeout {
+	    from {bottom: 30px; opacity: 1;}
+	    to {bottom: 0; opacity: 0;}
+	}
+
+
+  </style>
+</head>
+<body>
+	<div id="snackbar"><p>-Touch screen to create new flower-<br>BlueFlower Showcase with Two.js</p></div>
+
+	<div onclick="newOne()" id="main"></div>
+  	<script type="text/javascript">
+var el = document.getElementById("main"),
+    two = new Two({ 
+        fullscreen: true
+    });
+ 
+two.appendTo(el);
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * max) + min;
+};
+
+Math.radians = function(degrees) {
+	return degrees * Math.PI / 180;
+};
+ 
+Math.degrees = function(radians) {
+	return radians * 180 / Math.PI;
+};
+
+function drawFlower (x, y, r, a) {
+	colors = ["#001f3f","#0074D9","#7FDBFF"]
+	let flower = [];
+	let maxLeaf = getRandomInt(1,15);
+	for (i = 0; i <= maxLeaf ; i++) {
+		let ramdomr = Math.floor(Math.random() * r)+5;
+		let ramdoma = Math.floor(Math.random() * a);
+		let color = getRandomInt(0,3);
+		console.log(color);
+		flower[i] = two.makeCurve(x, y, ramdomr/2 * Math.cos(Math.radians(ramdoma)) + x, ramdomr/2 * Math.sin(Math.radians(ramdoma)) + y,ramdomr/2 * Math.cos(Math.radians(ramdoma)) + x, ramdomr/2 * Math.sin(Math.radians(ramdoma)) + y);
+		flower[i].fill = colors[color];
+		flower[i].noStroke();
+		flower[i].opacity = 0.7;
+	};
+
+	return flower;
+};
+
+drawFlower(two.width/2,two.height/2,(two.width/2),360);
+			
+two.update();
+
+function snackbar() {
+    var x = document.getElementById("snackbar")
+    x.className = "show";
+};
+snackbar();
+
+function newOne(){
+	two.clear();
+	drawFlower(two.width/2,two.height/2,(two.width/2),360);
+    two.update();
+};
+  	</script>
+</body>
+</html>
